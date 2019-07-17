@@ -73,7 +73,7 @@ function Login({history}){
                                 <Select options={options}  
                                         name="typeUser" 
                                         value={inputs.typeUser}
-                                        onChange={handleInputChange}
+                                        onChange={handleInputClick}
                                         placeholder="Selecciona un tipo de usuario" 
                                         className=""
                                         defaultValue={{ label: "Cliente", value: "C" }}

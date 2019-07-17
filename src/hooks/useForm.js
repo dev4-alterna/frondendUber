@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 function useForm(callback,defaults={}){
+    console.log(defaults)
     const [inputs, setInputs]= useState({defaults});
     const handleSubmit=(event)=>{
         if(event){
