@@ -7,6 +7,7 @@ import payload from '../utils/payload';
 import Input from '../components/input';
 import isAuthenticate from '../utils/IsAuthenticated';
 import useForm  from '../hooks/useForm';
+import {Link} from  'react-router-dom';
 
 
 const READ_CUSTOMER=gql`
@@ -54,8 +55,8 @@ function Update_Customer({history}){
             alert("Hubo un error") 
         }
         else{
-            localStorage.removeItem('UberToken')
-            history.push('/login')
+            //localStorage.removeItem('UberToken')
+            history.push('/update_customer')
         } 
         
     }
@@ -74,36 +75,46 @@ function Update_Customer({history}){
         <> 
         <Navbar/>
         <Header/>
-        <main className="container">
+        <main className="container flotante">
             <section className="row">
-                <div className="col-lg-8 col-md-10 mx-auto">
-                    <form onSubmit={handleSubmit}>
-                        <Input name="first_name"
-                        label="Nombres"
-                        placeholder="Ingrese los nombres"
-                        type="text"
-                        value={inputs.first_name}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="last_name"
-                        label="Apellidos"
-                        placeholder="Ingrese los apellidos"
-                        type="text"
-                        value={inputs.last_name}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="telephone"
-                        label="Teléfono"
-                        placeholder="Ingrese el teléfono"
-                        type="text"
-                        value={inputs.telephone}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <input type="submit" className="fadeIn fourth col-md-9" value="Enviar"/>
-                    </form>
+                <div className="wrapper fadeInDown">
+                    <div id="formContent">
+                        <form onSubmit={handleSubmit}>
+                            <div class="modal-header modal-header-danger first">
+                                 <i class="fa fa-user-plus"></i> Información personal 
+                                 <Link className="nav-link" to="/"><i className="fa fa-times"/></Link>
+                            </div>
+                            <div className="col-lg-8 col-md-10 mx-auto">
+                                <Input name="first_name"
+                                label="Nombres"
+                                placeholder="Ingrese los nombres"
+                                type="text"
+                                value={inputs.first_name}
+                                onChange={handleInputChange}
+                                required
+                                />
+                                <Input name="last_name"
+                                label="Apellidos"
+                                placeholder="Ingrese los apellidos"
+                                type="text"
+                                value={inputs.last_name}
+                                onChange={handleInputChange}
+                                required
+                                />
+                                <Input name="telephone"
+                                label="Teléfono"
+                                placeholder="Ingrese el teléfono"
+                                type="text"
+                                value={inputs.telephone}
+                                onChange={handleInputChange}
+                                required
+                                />
+                            </div>
+                            <div id="formFooter">
+                                <input type="submit" className="fourth" value="Enviar"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </section>
         </main>

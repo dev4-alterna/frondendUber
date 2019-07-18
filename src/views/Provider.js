@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Input from '../components/input';
 import useForm  from '../hooks/useForm';
+import {Link} from  'react-router-dom';
 
 const ADD_PROVIDER=gql`
 mutation addProvider($data:createProvidersInput!){
@@ -49,79 +50,82 @@ function Provider({history}){
         <>
         <Navbar/>
         <Header/>
-        <main className="container">
+        <main className="container flotante">
             <section className="row">
-                <div className="col-lg-8 col-md-10 mx-auto">
-                    <h3>Proveedor</h3>
-                    <form onSubmit={handleSubmit}>
-                        <Input name="first_name"
-                        label="Nombres"
-                        placeholder="Ingrese los nombres"
-                        type="text"
-                        value={inputs.first_name}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="last_name"
-                        label="Apellidos"
-                        placeholder="Ingrese los apellidos"
-                        type="text"
-                        value={inputs.last_name}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="telephone"
-                        label="Teléfono"
-                        placeholder="Ingrese el teléfono"
-                        type="text"
-                        value={inputs.telephone}
-                        onChange={handleInputChange}
-                        required
-                        />
-                         <div className="control-group">
-                            <div className="form-group">
-                                <div className="input-group">
-
-                                <img src={ProfilePreview} alt="Vista previa" className="col-md-3 Perfil"/>
-                                <Input name="profile_picture"
-                                    label="Foto de perfil"
-                                    type="file"
-                                    placeholder="Seleccione la foto del perfil"
-                                    onChange={handleCover}
+                <div className="wrapper fadeInDown">
+                    <div id="formContent">
+                        <form onSubmit={handleSubmit}>
+                        <div class="modal-header modal-header-danger first">
+                            <i class="fa fa-user-plus" />Proveedor 
+                            <Link className="nav-link" to="/"><i className="fa fa-times"/></Link>
+                        </div>
+                                       
+                            <div>
+                                    <Input name="first_name"
+                                    label="Nombres"
+                                    placeholder="Ingrese los nombres"
+                                    type="text"
+                                    value={inputs.first_name}
+                                    onChange={handleInputChange}
                                     required
                                     />
-                                </div>
+                                    <Input name="last_name"
+                                    label="Apellidos"
+                                    placeholder="Ingrese los apellidos"
+                                    type="text"
+                                    value={inputs.last_name}
+                                    onChange={handleInputChange}
+                                    required
+                                    />
+                                    <Input name="telephone"
+                                    label="Teléfono"
+                                    placeholder="Ingrese el teléfono"
+                                    type="text"
+                                    value={inputs.telephone}
+                                    onChange={handleInputChange}
+                                    required
+                                    />
+                                    
+                                    <img src={ProfilePreview} alt="Vista previa" />
+                                    <Input name="profile_picture"
+                                     label="Foto de perfil"
+                                     type="file"
+                                     placeholder="Seleccione la foto del perfil"
+                                     onChange={handleCover}
+                                     required
+                                    />
+            
+                                    <Input name="email"
+                                    label="Correo electrónico"
+                                    type="text"
+                                    placeholder="Ingrese el correo electrónico"
+                                    value={inputs.email}
+                                    onChange={handleInputChange}
+                                    required
+                                    />
+                                    <Input name="password"
+                                    label="Contraseña"
+                                    placeholder="Ingrese la contraseña"
+                                    type="password"
+                                    value={inputs.password}
+                                    onChange={handleInputChange}
+                                    required
+                                    />
+                                    <Input name="confirm_password"
+                                    label="Confirmación de contraseña"
+                                    placeholder="Ingrese la confirmación de la contraseña."
+                                    type="password"
+                                    value={inputs.confirm_password}
+                                    onChange={handleInputChange}
+                                    required
+                                    />
                             </div>
-                        </div>    
+                            <div id="formFooter">
+                                <input type="submit" className="fourth" value="Enviar"/>
+                            </div>
                             
-         
-                        <Input name="email"
-                        label="Correo electrónico"
-                        type="text"
-                        placeholder="Ingrese el correo electrónico"
-                        value={inputs.email}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="password"
-                        label="Contraseña"
-                        placeholder="Ingrese la contraseña"
-                        type="password"
-                        value={inputs.password}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="confirm_password"
-                        label="Confirmación de contraseña"
-                        placeholder="Ingrese la confirmación de la contraseña."
-                        type="password"
-                        value={inputs.confirm_password}
-                        onChange={handleInputChange}
-                        required
-                        />
-
-                        <input type="submit" className="fadeIn fourth col-md-9" value="Enviar"/>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </section>
         </main>

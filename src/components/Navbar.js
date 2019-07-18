@@ -14,7 +14,7 @@ return(
 
         <SideNav
         onSelect={(selected) => {
-            // Add your code here
+        
         }}
         >
         <SideNav.Toggle />
@@ -91,12 +91,14 @@ return(
                         </NavIcon>
                         <NavText>Configuración</NavText>
                         <NavItem eventKey="configuration/update">
-                            <NavText>
+                            <NavText style={{ fontSize: '1em' }}>
                                 <Link className="nav-link" to="/update_customer">Información personal</Link>
                             </NavText>
                         </NavItem>
                         <NavItem eventKey="configuration/delete_customer">
-                            <NavText>Eliminar cuenta</NavText>
+                            <NavText style={{ fontSize: '1em' }}>
+                                <Link className="nav-link" to="/delete_customer">Eliminar cuenta</Link>
+                            </NavText>
                         </NavItem>
                     </NavItem>
                     </>
@@ -141,7 +143,7 @@ return(
                 </NavText>
                 <NavItem eventKey="registro/customer">
                     <NavText>
-                        <Link className="nav-link" to="/customer">Cliente</Link>
+                        <Link className="nav-link" to="/customer" >Cliente</Link>
                     </NavText>
                 </NavItem>
                 <NavItem eventKey="registro/provider">

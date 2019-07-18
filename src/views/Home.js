@@ -19,7 +19,7 @@ const ALL_PRODUCT=gql`
 
 
 function Home(){
-const {data,loading,error}= useQuery(ALL_PRODUCT);
+const {data,loading}= useQuery(ALL_PRODUCT);
 
 return(
     <> 

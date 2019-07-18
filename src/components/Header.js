@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 function Header({cover}){
   const url= cover ? cover:image
     return(
-        <header className="masthead" style={{backgroundImage:`url(${url})`}}>
+        <header className="masthead">
         <div className="overlay"></div>
         <div className="container">
           <div className="row">

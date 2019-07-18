@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import gql from 'graphql-tag';
 import {useMutation} from 'react-apollo-hooks';
 import Select from 'react-select'
-
+import {Link} from  'react-router-dom';
 import useForm from '../hooks/useForm';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
@@ -46,13 +46,14 @@ function Login({history}){
         <main className="container flotante">
             <section className="row">
             <div className="wrapper fadeInDown">
-                    <div id="formContent">
+                <div id="LoginContent">
+                    <form onSubmit={handleSubmit}>   
                         <div className="fadeIn first">
-                        <img src={logo} id="icon" alt="User Icon" />
+                            <Link className="nav-link" to="/"><i className="fa fa-times"/></Link>
                         </div>
-                            <form onSubmit={handleSubmit}>
-                                            
-                                <Input name="email"
+                        <div>     
+                            <img src={logo} id="icon" alt="User Icon" />         
+                            <Input name="email"
                                     label="email"
                                     type="text"
                                     placeholder="Email"
@@ -60,8 +61,8 @@ function Login({history}){
                                     className="form-control"
                                     onChange={handleInputChange}
                                     required
-                                />
-                                <Input name="password"
+                            />
+                            <Input name="password"
                                     label="Password"
                                     placeholder="Password"
                                     className="form-control"
@@ -69,23 +70,22 @@ function Login({history}){
                                     value={inputs.password}
                                     onChange={handleInputChange}
                                     required
-                                />     
-                                <Select options={options}  
-                                        name="typeUser" 
-                                        value={inputs.typeUser}
-                                        onChange={handleInputClick}
-                                        placeholder="Selecciona un tipo de usuario" 
-                                        className=""
-                                        defaultValue={{ label: "Cliente", value: "C" }}
-                                />
-                                        
-                                 <input type="submit" className="fadeIn fourth" value="Login"/>
-                            </form>
+                            />     
+                            <Select options={options}  
+                                name="typeUser" 
+                                value={inputs.typeUser}
+                                onChange={handleInputClick}
+                                placeholder="Selecciona un tipo de usuario" 
+                                className=""
+                                defaultValue={{ label: "Cliente", value: "C" }}
+                            />
+                        </div>     
                         <div id="formFooter">
-                            <a class="underlineHover" href="#">¿Olvidó la contraseña?</a>
+                            <input type="submit" className="fourth" value="Login"/>
                         </div>
-                    </div>
-                    </div>
+                    </form>
+                </div>
+            </div>
             </section>
         </main>
         </>
