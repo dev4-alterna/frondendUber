@@ -1,50 +1,25 @@
 import React, {useState} from 'react';
 import gql from 'graphql-tag';
-import {useQuery,useMutation} from 'react-apollo-hooks';
+import {useMutation} from 'react-apollo-hooks';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
-import payload from '../utils/payload';
 import Input from '../components/input';
-import isAuthenticate from '../utils/IsAuthenticated';
 import useForm  from '../hooks/useForm';
 
-const READ_CUSTOMER=gql`
-query Customers($id:ID!) {
-    singleCustomer(id:$id) {
-    _id,
-    first_name,
-    last_name,
-    email,
-    telephone,
-    profile_picture
-  }
-}
-`;
-const UPDATE_CUSTOMER=gql`
-mutation updateCustomers($id:ID!,$data:updateCustomerInput!){
-    updateCustomers(id:$id,data:$data){
-      first_name,
-      last_name,
-      telephone,
-      profile_picture
+const ADD_PROVIDER=gql`
+mutation addProvider($data:createProvidersInput!){
+    createProviders(data:$data){
+      _id,
+      first_name
     }
   }
 `;
 
-function Update_Registro({history}){
-    if(!payload().isAuthenticated )
-    {
-        alert("Hubo un error: No autentificado")
-    }
-
-    const idcustom=payload().user._id;
-    const {dataCustom,loading} = useQuery(READ_CUSTOMER,{variables:{id:idcustom}})
-    //console.log(dataCustom);
-
+function Provider({history}){
     const [profile_picture,setProfilePicture]=useState('');
     const [ProfilePreview,setProfilePreview]=useState('');
 
-    const [sendCustomer,{data,error}]=useMutation(UPDATE_CUSTOMER);
+    const [sendProvider,{data,error}]=useMutation(ADD_PROVIDER);
 
     const handleCover=event=>{
         const render =new FileReader();
@@ -58,20 +33,26 @@ function Update_Registro({history}){
     }
 
     const catchRegistro=async(fields)=>{
-        await sendCustomer({variables:{data:{...fields,profile_picture}}})
-        error ? alert("Hubo un error") : history.push('/login')
-        
+        if(fields.password===fields.confirm_password){
+            delete fields.confirm_password
+            await sendProvider({variables:{data:{...fields,profile_picture}}})
+           
+            error ? alert("Hubo un error") : history.push('/login')
+        }
+        else{
+            alert('Los passwords no coinciden')
+        }
     }
 
-    const {inputs,handleInputChange,handleSubmit}=useForm(catchRegistro,dataCustom)
-
+    const {inputs,handleInputChange,handleSubmit}=useForm(catchRegistro)
     return(
-        <> 
+        <>
         <Navbar/>
         <Header/>
         <main className="container">
             <section className="row">
                 <div className="col-lg-8 col-md-10 mx-auto">
+                    <h3>Proveedor</h3>
                     <form onSubmit={handleSubmit}>
                         <Input name="first_name"
                         label="Nombres"
@@ -112,7 +93,33 @@ function Update_Registro({history}){
                                 </div>
                             </div>
                         </div>    
-                        
+                            
+         
+                        <Input name="email"
+                        label="Correo electrónico"
+                        type="text"
+                        placeholder="Ingrese el correo electrónico"
+                        value={inputs.email}
+                        onChange={handleInputChange}
+                        required
+                        />
+                        <Input name="password"
+                        label="Contraseña"
+                        placeholder="Ingrese la contraseña"
+                        type="password"
+                        value={inputs.password}
+                        onChange={handleInputChange}
+                        required
+                        />
+                        <Input name="confirm_password"
+                        label="Confirmación de contraseña"
+                        placeholder="Ingrese la confirmación de la contraseña."
+                        type="password"
+                        value={inputs.confirm_password}
+                        onChange={handleInputChange}
+                        required
+                        />
+
                         <input type="submit" className="fadeIn fourth col-md-9" value="Enviar"/>
                     </form>
                 </div>
@@ -122,4 +129,4 @@ function Update_Registro({history}){
     )
 }
 
-export default isAuthenticate(Update_Registro);
+export default Provider;

@@ -1,35 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import gql from 'graphql-tag';
-import {useMutation} from 'react-apollo-hooks';
+import {useQuery,useMutation} from 'react-apollo-hooks';
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
+import payload from '../utils/payload';
 import Input from '../components/input';
+import isAuthenticate from '../utils/IsAuthenticated';
 import useForm  from '../hooks/useForm';
 
-const ADD_CUSTOMER=gql`
-mutation addCustomer($data:createCustomerInput!){
-    createCustomers(data:$data){
-      _id,
-      first_name
+
+const READ_CUSTOMER=gql`
+query Customers($id:ID!) {
+    singleCustomer(id:$id) {
+    _id,
+    first_name,
+    last_name,
+    email,
+    telephone,
+    profile_picture
+  }
+}
+`;
+const UPDATE_CUSTOMER=gql`
+mutation updateCustomers($id:ID!,$data:updateCustomerInput!){
+    updateCustomers(id:$id,data:$data){
+      first_name,
+      last_name,
+      telephone,
+      profile_picture
     }
   }
 `;
 
-const ADD_PROVIDER=gql`
-mutation addProvider($data:createProvidersInput!){
-    createProviders(data:$data){
-      _id,
-      first_name
+function Update_Customer({history}){
+    if(!payload().isAuthenticated )
+    {
+        alert("Hubo un error: No autentificado")
     }
-  }
-`;
 
-function Registro({history}){
+    const idcustom=payload().user._id;
+    const {data,loading} = useQuery(READ_CUSTOMER,{variables:{id:idcustom}})
+    //console.log(data);
+
     const [profile_picture,setProfilePicture]=useState('');
     const [ProfilePreview,setProfilePreview]=useState('');
+    const [user,setUser]=useState('');
 
-    const [sendCustomer,{data,error}]=useMutation(ADD_CUSTOMER);
-    const [sendProvider,{data1,error1}]=useMutation(ADD_PROVIDER);
+    const [sendCustomer,{error}]=useMutation(UPDATE_CUSTOMER);
+    
 
     const handleCover=event=>{
         const render =new FileReader();
@@ -43,29 +61,23 @@ function Registro({history}){
     }
 
     const catchRegistro=async(fields)=>{
-        if(fields.password===fields.confirm_password){
-            delete fields.confirm_password
-            const typeUser=fields.typeUser;
-            delete fields.typeUser
-
-            if(typeUser==='C'){
-                await sendCustomer({variables:{data:{...fields,profile_picture}}})
-            }
-            else if(typeUser==='P'){
-                await sendProvider({variables:{data:{...fields,profile_picture}}})
-            }else{
-                 alert("Hubo un error")
-            }
-            error | error1 ? alert("Hubo un error") : history.push('/login')
-        }
-        else{
-            alert('Los passwords no coinciden')
-        }
+        await sendCustomer({variables:{id:idcustom,data:{...fields,profile_picture}}})
+        error ? alert("Hubo un error") : history.push('/login')
+        
     }
 
-    const {inputs,handleInputChange,handleSubmit}=useForm(catchRegistro)
+    const {inputs,handleInputChange,handleSubmit,setVariables}=useForm(catchRegistro)
+
+    useEffect(()=>{
+        if(data)
+        {
+            setVariables(data.singleCustomer)
+        }
+       
+    },[data])
+
     return(
-        <>
+        <> 
         <Navbar/>
         <Header/>
         <main className="container">
@@ -111,41 +123,7 @@ function Registro({history}){
                                 </div>
                             </div>
                         </div>    
-                            
-         
-                        <Input name="email"
-                        label="Correo electrónico"
-                        type="text"
-                        placeholder="Ingrese el correo electrónico"
-                        value={inputs.email}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="password"
-                        label="Contraseña"
-                        placeholder="Ingrese la contraseña"
-                        type="password"
-                        value={inputs.password}
-                        onChange={handleInputChange}
-                        required
-                        />
-                        <Input name="confirm_password"
-                        label="Confirmación de contraseña"
-                        placeholder="Ingrese la confirmación de la contraseña."
-                        type="password"
-                        value={inputs.confirm_password}
-                        onChange={handleInputChange}
-                        required
-                        />
-
-                        <Input name="typeUser"
-                        label="Tipo de usuario"
-                        placeholder="Selecciona el tipo de usuario"
-                        type="text"
-                        value={inputs.typeUser}
-                        onChange={handleInputChange}
-                        required
-                        />
+                        
                         <input type="submit" className="fadeIn fourth col-md-9" value="Enviar"/>
                     </form>
                 </div>
@@ -155,4 +133,4 @@ function Registro({history}){
     )
 }
 
-export default Registro;
+export default isAuthenticate(Update_Customer);

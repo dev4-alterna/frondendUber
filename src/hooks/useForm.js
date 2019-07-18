@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
-function useForm(callback,defaults={}){
-    console.log(defaults)
-    const [inputs, setInputs]= useState({defaults});
+function useForm(callback){
+    
+    const [inputs, setInputs]= useState({});
+   
+
     const handleSubmit=(event)=>{
         if(event){
             event.preventDefault();
@@ -11,6 +13,11 @@ function useForm(callback,defaults={}){
         callback(inputs);
        
     }
+
+    const setVariables=(fields)=>{
+       setInputs({...fields})
+    }
+
     const handleInputChange=(event)=>{
         event.persist();
         const {name,value} =event.target
@@ -20,7 +27,7 @@ function useForm(callback,defaults={}){
     const handleInputClick=(event)=>{
         event.persist();
         const {name,value} =event.target
-        console.log(event.target)
+        //console.log(event.target)
         setInputs(fields=>({...fields,[name]:value}));
     }
 
@@ -28,7 +35,8 @@ function useForm(callback,defaults={}){
         inputs,
         handleSubmit,
         handleInputChange,
-        handleInputClick
+        handleInputClick,
+        setVariables
     }
 }
 

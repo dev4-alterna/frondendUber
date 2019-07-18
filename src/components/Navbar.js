@@ -51,6 +51,20 @@ return(
                         <Link className="nav-link" to="/products">Productos</Link>
                         </NavText>
                     </NavItem> 
+                    <NavItem eventKey="configuration">
+                        <NavIcon>
+                            <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
+                        </NavIcon>
+                        <NavText>Configuración</NavText>
+                        <NavItem eventKey="configuration/provider">
+                            <NavText>
+                                <Link className="nav-link" to="/update_provider">Información personal</Link>
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="configuration/delete_provider">
+                            <NavText>Eliminar cuenta</NavText>
+                        </NavItem>
+                    </NavItem>
                   </>
                 ):(
                   <>
@@ -70,7 +84,22 @@ return(
                         <Link className="nav-link" to="/history">Mis Compras</Link>
                         </NavText>
                     </NavItem> 
-                  </>
+
+                    <NavItem eventKey="configuration">
+                        <NavIcon>
+                            <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
+                        </NavIcon>
+                        <NavText>Configuración</NavText>
+                        <NavItem eventKey="configuration/update">
+                            <NavText>
+                                <Link className="nav-link" to="/update_customer">Información personal</Link>
+                            </NavText>
+                        </NavItem>
+                        <NavItem eventKey="configuration/delete_customer">
+                            <NavText>Eliminar cuenta</NavText>
+                        </NavItem>
+                    </NavItem>
+                    </>
                 )
             }
             <NavItem eventKey="addres">
@@ -80,20 +109,6 @@ return(
                       <NavText>
                       <Link className="nav-link" to="/addres">Direcciones</Link>
                       </NavText>
-            </NavItem>
-            <NavItem eventKey="configuration">
-                <NavIcon>
-                    <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
-                </NavIcon>
-                <NavText>Configuración</NavText>
-                <NavItem eventKey="configuration/update">
-                    <NavText>
-                        <Link className="nav-link" to="/update_registro">Información personal</Link>
-                    </NavText>
-                </NavItem>
-                <NavItem eventKey="configuration/delete">
-                    <NavText>Eliminar cuenta</NavText>
-                </NavItem>
             </NavItem>
 
             <NavItem eventKey="logout">
@@ -118,12 +133,23 @@ return(
             </NavItem>
             <NavItem eventKey="registro">
                 <NavIcon>
-                    <Link className="nav-link" to="/registro"><i className="fa fa-user-plus" style={{ fontSize: '1.75em' }} /></Link>
+                    <i className="fa fa-user-plus" style={{ fontSize: '1.75em' }} />
                     
                 </NavIcon>
                 <NavText>
-                  <Link className="nav-link" to="/registro">Registro</Link>
+                  Registro
                 </NavText>
+                <NavItem eventKey="registro/customer">
+                    <NavText>
+                        <Link className="nav-link" to="/customer">Cliente</Link>
+                    </NavText>
+                </NavItem>
+                <NavItem eventKey="registro/provider">
+                    <NavText>
+                        <Link className="nav-link" to="/provider">Proveedor</Link>
+                    </NavText>
+                </NavItem>
+
             </NavItem>
             </>
            )

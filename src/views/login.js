@@ -27,7 +27,7 @@ function Login({history}){
     const [sendLogin]=useMutation(LOGIN);
 
     const submitLogin =async(fields)=>{
-        console.log(fields) 
+        //console.log(fields) 
         const mutation=await sendLogin({variables:{...fields}})
         if(mutation){
             const {login}=mutation.data;
@@ -45,7 +45,7 @@ function Login({history}){
         <Header/>
         <main className="container flotante">
             <section className="row">
-            <div class="wrapper fadeInDown">
+            <div className="wrapper fadeInDown">
                     <div id="formContent">
                         <div className="fadeIn first">
                         <img src={logo} id="icon" alt="User Icon" />
