@@ -38,7 +38,9 @@ function Login({history}){
             alert("Hubo un error")
         }
     }
-    const {inputs,handleInputChange,handleSubmit,handleInputClick}=useForm(submitLogin)
+ 
+    
+    const {inputs,handleInputChange,handleSubmit,handleInputClick,handleSelect}=useForm(submitLogin)
     return(
         <>
         <Navbar/>
@@ -74,7 +76,7 @@ function Login({history}){
                             <Select options={options}  
                                 name="typeUser" 
                                 value={inputs.typeUser}
-                                onChange={handleInputClick}
+                                onChange={handleSelect}
                                 placeholder="Selecciona un tipo de usuario" 
                                 className=""
                                 defaultValue={{ label: "Cliente", value: "C" }}
