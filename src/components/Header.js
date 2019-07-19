@@ -12,8 +12,8 @@ function Header({cover}){
           <div className="row">
             <div className="col-lg-8 col-md-10 mx-auto">
               <div className="site-heading">
-                <h1>Uber Eats</h1>
-                <span className="subheading">Demo</span>
+                <h1>&nbsp;</h1>
+                <span className="subheading">&nbsp;</span>
               </div>
             </div>
           </div>

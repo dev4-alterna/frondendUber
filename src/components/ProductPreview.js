@@ -22,7 +22,7 @@ function ProductPreview({ _id, name, description, price, profile_picture }) {
 							<h5>{description}</h5>
 						</div>
 						{payload().isAuthenticated ?
-							payload().user.typeUser === 'P' ? (<Link to={`/products/upd/${_id}`}>Editar</Link>) :
+							payload().user.typeUser === 'P' ? (<Link to={`/products_upd/${_id}`}>Editar</Link>) :
 								(<Link to={`/sales/${_id}`}>Comprar</Link>) : ("")
 						}
 

@@ -16,7 +16,7 @@ function Navbar(){
       };
 return(
 <div style={{ width: 250 }}>
-        <SideNav style={headerStyles}>
+        <SideNav >
         <SideNav.Toggle  />
         <SideNav.Nav  >
             <NavItem eventKey="home"> 
@@ -97,7 +97,7 @@ return(
                                     <i className="fa fa-cog" style={{ fontSize: '1.75em' }} />
                                 </NavIcon>
                                 <NavText>Configuración</NavText>
-                                <NavItem eventKey="configuration/update" style={headerStyles}>
+                                <NavItem eventKey="configuration/update">
                                     <NavText style={{ fontSize: '1em' }}>
                                         <Link className="nav-link" to="/update_customer">Información personal</Link>
                                     </NavText>
@@ -111,13 +111,24 @@ return(
                         </>
                         )
                     }
-                <NavItem eventKey="addres">
-                        <NavIcon>
-                        <Link className="nav-link" to="/addres"><i className="fa fa-street-view" style={{ fontSize: '1.75em' }} /></Link>
-                        </NavIcon>
-                        <NavText>
-                        <Link className="nav-link" to="/addres">Direcciones</Link>
-                        </NavText>
+                <NavItem eventKey="address">
+                      <NavIcon>
+                            <i className="fa fa-street-view" style={{ fontSize: '1.75em' }} />
+                      </NavIcon>
+                      <NavText>
+                       Direcciones 
+                      </NavText>
+                      <NavItem eventKey="">
+                            <NavText style={{ fontSize: '1em' }}>
+                                <Link className="nav-link" to="/Address">Alta de direcciones</Link>
+                            </NavText>
+                       </NavItem>
+                       <NavItem eventKey="">
+                            <NavText style={{ fontSize: '1em' }}>
+                                <Link className="nav-link" to="/listAddress">Lista de direcciones</Link>
+                            </NavText>
+                       </NavItem>
+                      
                 </NavItem>
 
                 <NavItem eventKey="logout">

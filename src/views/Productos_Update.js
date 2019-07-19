@@ -34,29 +34,21 @@ function Productos_Update({ history,match}) {
 
     const{id} = match.params;
     if (!payload().isAuthenticated) {
-        alert("Hubo un error: No autentificado")
+        alert("Hubo un error: No autentificado.")
     }
 
-    const idproduct = id;
-    const { data, loading } = useQuery(READ_PRODUCTOS, { variables: { id: idproduct } })
-    //console.log(data);
-
-    const [user, setUser] = useState('');
-
+    const { data, loading } = useQuery(READ_PRODUCTOS, { variables: { id } })
     const [sendProducts, { error }] = useMutation(UPDATE_PRODUCTS);
 
-
-    const catchRegistro = async (fields) => {
-        delete fields.__typename
-        delete fields._id
-        await sendProducts({ variables: { id: idproduct, data: { ...fields } } })
+    const catchRegistro = async (fields) => {       
+        await sendProducts({ variables: { id: id, data: {name:fields.name,description:fields.description,price:parseFloat(fields.price)} } })
 
         if (error) {
-            alert("Hubo un error")
+            alert("Hubo un error.")
         }
         else {
-            //localStorage.removeItem('UberToken')
-            history.push('/UPDATE_PRODUCTS')
+            alert("Se actualizo correctamente.")
+            history.push('/')
         }
 
     }

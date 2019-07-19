@@ -56,7 +56,7 @@ function Update_Customer({history}){
         }
         else{
             //localStorage.removeItem('UberToken')
-            history.push('/update_customer')
+            history.push('/')
             alert("Se guardo correctamente.") 
         } 
         

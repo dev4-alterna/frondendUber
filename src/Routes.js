@@ -10,6 +10,8 @@ import Update_Customer from './views/Update_customer';
 import Productos from './views/Productos';
 import Productos_upd from './views/Productos_Update';
 import SalesHistory from './views/SalesHistory';
+import Address from './views/Address';
+import ListAddress from './views/ListAddress';
 
 function Lougout(){
   localStorage.removeItem('UberToken')
@@ -29,8 +31,10 @@ function Routes() {
       <Route exact path="/create" component={Create}/>
       <Route exact path="/update_customer" component={Update_Customer}/>
       <Route exact path="/products_add" component={Productos}/>
-      <Route exact path="/products_upd" component={Productos_upd}/>
-	  <Route exact path="/history" component={SalesHistory}/>
+      <Route exact path="/products_upd/:id" component={Productos_upd}/>
+	    <Route exact path="/history" component={SalesHistory}/>
+      <Route exact path="/Address" component={Address}/>
+      <Route exact path="/ListAddress" component={ListAddress}/>
     </>
     
   )
