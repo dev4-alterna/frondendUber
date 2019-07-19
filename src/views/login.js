@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import gql from 'graphql-tag';
 import {useMutation} from 'react-apollo-hooks';
 import Select from 'react-select'
@@ -8,10 +8,11 @@ import Navbar from '../components/Navbar';
 import Header from '../components/Header';
 import Input from '../components/input';
 import logo from '../image/uber-eats.jpg';
+import App from '../components/select';
 
 const LOGIN=gql`
-mutation LOGIN($email:String!,$password:String!){
-    login(email:$email,password:$password,typeUser:C){
+mutation LOGIN($email:String!,$password:String!,$typeUser:TYPE_USER){
+    login(email:$email,password:$password,typeUser:$typeUser){
         token
     }
 }
@@ -26,9 +27,16 @@ const options = [
 function Login({history}){
     const [sendLogin]=useMutation(LOGIN);
 
+    const [typeUser,setState]=useState('');
+	const { selectedOption } = typeUser;
+ 
+    const handleChange = (select,selected) => {
+        setState(select.value);  
+    }
+
     const submitLogin =async(fields)=>{
         //console.log(fields) 
-        const mutation=await sendLogin({variables:{...fields}})
+        const mutation=await sendLogin({variables:{...fields, typeUser}})
         if(mutation){
             const {login}=mutation.data;
             localStorage.setItem('UberToken',login.token);
@@ -40,7 +48,7 @@ function Login({history}){
     }
  
     
-    const {inputs,handleInputChange,handleSubmit,handleInputClick,handleSelect}=useForm(submitLogin)
+    const {inputs,handleInputChange,handleSubmit,handleInputClick}=useForm(submitLogin)
     return(
         <>
         <Navbar/>
@@ -72,15 +80,15 @@ function Login({history}){
                                     value={inputs.password}
                                     onChange={handleInputChange}
                                     required
-                            />     
-                            <Select options={options}  
-                                name="typeUser" 
-                                value={inputs.typeUser}
-                                onChange={handleSelect}
-                                placeholder="Selecciona un tipo de usuario" 
-                                className=""
-                                defaultValue={{ label: "Cliente", value: "C" }}
+                            />   
+                            <App 
+                            name="typeUser"
+                            value={selectedOption}
+                            options={options}
+                            onChange={handleChange}
+                            placeholder="Selecciona un tipo de usuario" 
                             />
+                           
                         </div>     
                         <div id="formFooter">
                             <input type="submit" className="fourth" value="Login"/>

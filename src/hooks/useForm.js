@@ -31,19 +31,18 @@ function useForm(callback){
         setInputs(fields=>({...fields,[name]:value}));
     }
 
-    const handleSelect=(select,selected)=>{
+    /*const handleSelect=(select,selected)=>{
         console.log(select)
         //const {name,value} =event.target
         setInputs(fields=>({...fields,[selected.name]:select.value}));
-    }
+    }*/
     
     return {
         inputs,
         handleSubmit,
         handleInputChange,
         handleInputClick,
-        setVariables,
-        handleSelect
+        setVariables
     }
 }
 
