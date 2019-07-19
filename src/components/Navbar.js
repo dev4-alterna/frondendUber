@@ -43,13 +43,21 @@ return(
                     {
                         payload().user.typeUser=='P' ?(
                         <>
-                            <NavItem eventKey="products">
+                             <NavItem eventKey="products">
                                 <NavIcon>
-                                <Link className="nav-link" to="/products"><i className="fa fa-product-hunt" style={{ fontSize: '1.75em' }} /></Link>
+                                <Link className="nav-link" to="/products_add"><i className="fa fa-product-hunt" style={{ fontSize: '1.75em' }} /></Link>
                                 </NavIcon>
-                                <NavText>
-                                <Link className="nav-link" to="/products">Productos</Link>
-                                </NavText>
+                                <NavText>Productos</NavText>
+                                <NavItem eventKey="products/add">
+                                    <NavText>
+                                        <Link className="nav-link" to="/products_add">Agrear Productos </Link>
+                                    </NavText>
+                                </NavItem>
+                                <NavItem eventKey="products/upd">
+                                    <NavText>
+                                        <Link className="nav-link" to="/products_upd">Modificar Productos</Link>
+                                    </NavText>
+                                </NavItem>
                             </NavItem> 
                             <NavItem eventKey="configuration" >
                                 <NavIcon>
