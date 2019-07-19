@@ -32,9 +32,11 @@ return(
             <> 
                 <NavItem eventKey="bienvenido">
                     <NavIcon>
-                        <i style={{ fontSize: '1.75em' }} >
-                        <img src={payload().user.profile_picture=="" ?defaul_img:payload().user.profile_picture} alt="preview" className="Perfil"/>
-                        </i>
+                        <Link className="nav-link" to="/update_photo">
+                            <i style={{ fontSize: '1.75em' }} >
+                            <img src={payload().user.profile_picture=="" ?defaul_img:payload().user.profile_picture} alt="preview" className="Perfil"/>
+                            </i>
+                        </Link>
                     </NavIcon>
                     <NavText>
                     <b>Bienvenido {payload().user.first_name} {payload().user.last_name} &nbsp;</b> 
